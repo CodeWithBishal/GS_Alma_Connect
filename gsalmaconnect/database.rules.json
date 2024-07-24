@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "FeedPosts":{
+      ".indexOn": ["isHidden", "UID", "ID", "sharedID"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "OfficialUpdate":{
+      ".indexOn": ["isHidden", "UID", "ID"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "UserData": {
+      "$uid": {
+        ".write": "auth != null",
+        ".read": "auth != null"
+      }
+    },
+    "UserName":{
+      ".indexOn": ["UserName"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "PublicUserData":{
+      ".indexOn": ["UserName", "fullname", "isAllowDM", "UID"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "ChatData":{
+      ".indexOn": ["chatID"],
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    ".read": false,
+    ".write": false
+  }
+}

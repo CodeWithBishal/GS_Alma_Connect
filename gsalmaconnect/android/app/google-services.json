@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "911872147658",
+    "firebase_url": "https://gsconnect-1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "gsconnect-1",
+    "storage_bucket": "gsconnect-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911872147658:android:bb3c260df4a24085837433",
+        "android_client_info": {
+          "package_name": "com.sgsits.gs_connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911872147658-q93n0ghc5eaqru5s3lpefur4aji57j85.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sgsits.gs_connect",
+            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
+          }
+        },
+        {
+          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sgsits.gsconnect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911872147658:android:a123f4946062ae34837433",
+        "android_client_info": {
+          "package_name": "com.sgsits.gs_connect_debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911872147658-3gi8n7tfhflkn7nceirp5iuub77d22m0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sgsits.gs_connect_debug",
+            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
+          }
+        },
+        {
+          "client_id": "911872147658-qkcdu5ab1euo279bjgg7ag8oppdcmput.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sgsits.gs_connect_debug",
+            "certificate_hash": "e882c939d3a09643a3220da58ba1d9aa12812b88"
+          }
+        },
+        {
+          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sgsits.gsconnect"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
