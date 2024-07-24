@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gsconnect/screens/auth/login.dart';
+import 'package:gsconnect/screens/auth/mobile_auth.dart';
 import 'package:gsconnect/screens/auth/register.dart';
 import 'package:gsconnect/models/authentication.dart';
 import 'package:gsconnect/theme/colors.dart';
@@ -109,18 +110,6 @@ class _ContinuePageState extends State<ContinuePage> {
                     ),
                   ),
                   SizedBox(
-                    height: height / 30,
-                  ),
-                  Text(
-                    Whitelabel.subTag, //TODOO
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w100,
-                    ),
-                  ),
-                  SizedBox(
                     height: height / 10,
                   ),
                   SizedBox(
@@ -147,7 +136,45 @@ class _ContinuePageState extends State<ContinuePage> {
                         ),
                       ),
                       child: const Text(
-                        "Sign Up with Email ID",
+                        "Kindly Register Yourself",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: height / 100,
+                  ),
+                  SizedBox(
+                    width: width - width / 15,
+                    height: height / 15,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => const MobileOTP(),
+                          ),
+                        );
+                      },
+                      style: ButtonStyle(
+                        enableFeedback: false,
+                        backgroundColor:
+                            WidgetStateProperty.all(const Color(0XFF064A98)),
+                        overlayColor: WidgetStateProperty.all(Colors.white12),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(9),
+                          ),
+                        ),
+                      ),
+                      child: const Text(
+                        "Register with Number",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 18,

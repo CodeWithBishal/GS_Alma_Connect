@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Whitelabel {
   static String get platName {
-    return "GS Connect";
+    return "GS AlmaConnect";
   }
 
   static String get logoPath {
@@ -10,15 +10,15 @@ class Whitelabel {
   }
 
   static String get tag_1 {
-    return "Connecting Minds,";
+    return "Hello Alumni,";
   }
 
   static String get tag_2 {
-    return " Advancing Research";
+    return " Welcome to GS AlmaConnect";
   }
 
   static String get subTag {
-    return "Connect. Research. Innovate.";
+    return "";
   }
 }
 
