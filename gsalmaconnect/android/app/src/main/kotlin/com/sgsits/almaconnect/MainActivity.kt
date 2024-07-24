@@ -1,4 +1,4 @@
-package com.sgsits.gsconnect
+package com.sgsits.almaconnect
 
 import io.flutter.embedding.android.FlutterActivity
 
