@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:911872147658:android:cceeb13beb06ce2b837433",
+        "android_client_info": {
+          "package_name": "com.sgsits.almaconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sgsits.gsconnect"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:911872147658:android:bb3c260df4a24085837433",
         "android_client_info": {
           "package_name": "com.sgsits.gs_connect"
