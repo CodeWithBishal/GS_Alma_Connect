@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "911872147658-42qk53ucbk0cg9o4e7u1pj7t6sgcq5jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sgsits.almaconnect",
+            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
+          }
+        },
+        {
+          "client_id": "911872147658-hefdguht8dtef8r3vqp18rr8st3jtj1b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sgsits.almaconnect",
+            "certificate_hash": "e882c939d3a09643a3220da58ba1d9aa12812b88"
+          }
+        },
+        {
           "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
           "client_type": 3
         }
