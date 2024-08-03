@@ -33,7 +33,7 @@ class UserProfileDataAdapter extends TypeAdapter<UserProfileData> {
       branch: fields[13] as String,
       enrollmentYear: fields[14] as String,
       profileHeadline: fields[15] as String,
-      researchBrief: fields[16] as String,
+      professionalBrief: fields[16] as String,
       course: fields[17] as String,
       otherUserData:
           fields[18] == null ? [] : (fields[18] as List).cast<dynamic>(),
@@ -78,7 +78,7 @@ class UserProfileDataAdapter extends TypeAdapter<UserProfileData> {
       ..writeByte(15)
       ..write(obj.profileHeadline)
       ..writeByte(16)
-      ..write(obj.researchBrief)
+      ..write(obj.professionalBrief)
       ..writeByte(17)
       ..write(obj.course)
       ..writeByte(18)

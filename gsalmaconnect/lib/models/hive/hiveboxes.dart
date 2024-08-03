@@ -5,8 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gsconnect/models/hive/hive_user.dart';
 import 'package:gsconnect/screens/auth/redirect.dart';
+import 'package:gsconnect/screens/pages/profile.dart';
 import 'package:gsconnect/widgets/consts.dart';
-import 'package:gsconnect/widgets/verify_dialog.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 final userHiveData = Hive.box<UserProfileData>(HiveBoxes.userProfileData);
@@ -36,7 +36,7 @@ Future addToHive(
   String branch,
   String enrollmentYear,
   String profileHeadline,
-  String researchBrief,
+  String professionalBrief,
   String course,
   List otherUserData,
   String fcmToken,
@@ -63,7 +63,7 @@ Future addToHive(
       branch: branch,
       enrollmentYear: enrollmentYear,
       profileHeadline: profileHeadline,
-      researchBrief: researchBrief,
+      professionalBrief: professionalBrief,
       otherUserData: otherUserData,
       course: course,
       fcmToken: fcmToken,
@@ -105,7 +105,7 @@ Future checkHiveDatabase() async {
         branch: userData.child("branch").value.toString(),
         enrollmentYear: userData.child("enrollmentYear").value.toString(),
         profileHeadline: userData.child("profileHeadline").value.toString(),
-        researchBrief: userData.child("researchBrief").value.toString(),
+        professionalBrief: userData.child("professionalBrief").value.toString(),
         otherUserData:
             userData.child("otherUserData").value.toString() != "null"
                 ? json.decode(
@@ -150,10 +150,21 @@ bool notVerified() {
 Future handleVerify(BuildContext context) async {
   //True means keep the loading screen on
   Completer<bool> completer = Completer<bool>();
+  User? currentUserA = FirebaseAuth.instance.currentUser;
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     late bool boolReturn = true;
     if (isHiveExist() && notVerified() && context.mounted) {
-      verifyBottomSheet(context);
+      if (!context.mounted) return;
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyProfile(
+            isMyProfile: true,
+            uid: currentUserA!.uid,
+          ),
+        ),
+        (route) => false,
+      );
     } else if (notVerified() == false) {
       //User is verified Allow perform all actions
       boolReturn = false;

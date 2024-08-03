@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       branch: "",
       enrollmentYear: "",
       profileHeadline: "",
-      researchBrief: "",
+      professionalBrief: "",
       course: "",
       otherUserData: [],
       fcmToken: "");
@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
     handleVerify(context);
     final query = widget.isOfficialUpdate ? officialUpdateRTDB : feedPostsRTDB;
     final bool isHiddenHide = widget.isMyPost ? false : true;

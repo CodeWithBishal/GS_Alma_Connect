@@ -14,8 +14,9 @@ class UserModel {
   int noOfPosts;
   String branch;
   String enrollmentYear;
+  String passYear;
   String profileHeadline;
-  String researchBrief;
+  String professionalBrief;
   String course;
   List otherData;
   String fcmToken;
@@ -36,8 +37,9 @@ class UserModel {
     required this.noOfPosts,
     required this.branch,
     required this.enrollmentYear,
+    required this.passYear,
     required this.profileHeadline,
-    required this.researchBrief,
+    required this.professionalBrief,
     required this.course,
     required this.otherData,
     required this.fcmToken,
@@ -60,8 +62,9 @@ class UserModel {
       'noOfPosts': noOfPosts,
       'branch': branch,
       'enrollmentYear': enrollmentYear,
+      'passYear': passYear,
       'profileHeadline': profileHeadline,
-      'researchBrief': researchBrief,
+      'professionalBrief': professionalBrief,
       'course': course,
       'otherData': otherData,
       'fcmToken': fcmToken,

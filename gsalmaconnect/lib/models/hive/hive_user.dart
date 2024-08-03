@@ -36,7 +36,7 @@ class UserProfileData extends HiveObject {
   @HiveField(15)
   final String profileHeadline;
   @HiveField(16)
-  final String researchBrief;
+  final String professionalBrief;
   @HiveField(17)
   final String course;
   @HiveField(18, defaultValue: [])
@@ -60,7 +60,7 @@ class UserProfileData extends HiveObject {
     required this.branch,
     required this.enrollmentYear,
     required this.profileHeadline,
-    required this.researchBrief,
+    required this.professionalBrief,
     required this.course,
     required this.otherUserData,
     required this.fcmToken,

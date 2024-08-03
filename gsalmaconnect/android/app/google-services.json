@@ -15,19 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "911872147658-42qk53ucbk0cg9o4e7u1pj7t6sgcq5jv.apps.googleusercontent.com",
+          "client_id": "911872147658-8e8er7iudndebegn7b7jeum354iok5et.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sgsits.almaconnect",
-            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
-          }
-        },
-        {
-          "client_id": "911872147658-hefdguht8dtef8r3vqp18rr8st3jtj1b.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sgsits.almaconnect",
-            "certificate_hash": "e882c939d3a09643a3220da58ba1d9aa12812b88"
+            "certificate_hash": "9f5715d2a222b008c11eb0827c44ac4fac0085dd"
           }
         },
         {
@@ -67,14 +59,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "911872147658-q93n0ghc5eaqru5s3lpefur4aji57j85.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sgsits.gs_connect",
-            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
-          }
-        },
-        {
           "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -111,11 +95,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "911872147658-3gi8n7tfhflkn7nceirp5iuub77d22m0.apps.googleusercontent.com",
+          "client_id": "911872147658-9nkauvblda37djhthrlu6vct98djk0h4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.sgsits.gs_connect_debug",
-            "certificate_hash": "03b7f3d0b56011c21993d29ed233e551c040b801"
+            "certificate_hash": "9f5715d2a222b008c11eb0827c44ac4fac0085dd"
           }
         },
         {

@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gsconnect/models/hive/hiveboxes.dart';
+import 'package:gsconnect/models/user.dart';
 import 'package:gsconnect/screens/backend/update_profile.dart';
 import 'package:gsconnect/screens/chat/chat_screen.dart';
+import 'package:gsconnect/screens/pages/homepage.dart';
 import 'package:gsconnect/theme/colors.dart';
 import 'package:gsconnect/theme/whitelabel.dart';
 import 'package:gsconnect/widgets/appbar.dart';
@@ -31,28 +33,40 @@ class _MyProfileState extends State<MyProfile> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController profileHeadlineEditingController =
       TextEditingController();
-  final TextEditingController researchEditingController =
+  final TextEditingController professionalEditingController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
   final String uidForMessage = FirebaseAuth.instance.currentUser!.uid;
   late User? user = FirebaseAuth.instance.currentUser;
+  UserModel userModel = UserModel(
+    uid: "",
+    fullname: "",
+    phoneNumber: "",
+    email: "",
+    userName: "",
+    dateTime: "",
+    isVerified: false,
+    imgURL: "",
+    enrollmentNo: "",
+    domain: [],
+    communityRole: "",
+    lastProfileUpdateTime: "",
+    noOfPosts: 0,
+    branch: "",
+    enrollmentYear: "",
+    passYear: "",
+    profileHeadline: "",
+    professionalBrief: "",
+    course: "",
+    otherData: [],
+    fcmToken: "",
+    isAllowDM: false,
+  );
+  late double _keyboardHeight = 0;
   late String imagePath = "";
   late String extensionImg = "";
   late dynamic res;
-  late String username;
-  late String profileHeadline;
-  late String enrollmentNo;
-  late String enrollmentYear;
-  late String branch;
-  late String communityRole;
-  late bool isVerified;
-  late String researchBrief;
 
-  //for fetch
-  late String displayName;
-  late String photoURL;
-  late String oppoUID;
-  late String fcmToken;
   late bool _isLoading = widget.isMyProfile ? false : true;
 
   @override
@@ -73,17 +87,18 @@ class _MyProfileState extends State<MyProfile> {
 
       user = FirebaseAuth.instance.currentUser;
       res = userHiveData.getAt(0);
-      username = res?.userName.toString() ?? "";
-      profileHeadline = res?.profileHeadline.toString() ?? "";
-      enrollmentNo = res?.enrollmentNo.toString() ?? "";
-      enrollmentYear = res?.enrollmentYear.toString() ?? "";
-      branch = res?.branch.toString() ?? "";
-      communityRole = res?.communityRole ?? "Student";
-      isVerified = res?.isVerified ?? false;
-      researchBrief = res?.researchBrief ?? "";
-      if (researchBrief.isEmpty) {
-        researchBrief =
-            "Provide a concise overview of your previous research background.";
+
+      userModel.userName = res?.userName.toString() ?? "";
+      userModel.profileHeadline = res?.profileHeadline.toString() ?? "";
+      userModel.enrollmentNo = res?.enrollmentNo.toString() ?? "";
+      userModel.enrollmentYear = res?.enrollmentYear.toString() ?? "";
+      userModel.branch = res?.branch.toString() ?? "";
+      userModel.communityRole = res?.communityRole ?? "Student";
+      userModel.isVerified = res?.isVerified ?? false;
+      userModel.professionalBrief = res?.professionalBrief ?? "";
+      if (userModel.professionalBrief.isEmpty) {
+        userModel.professionalBrief =
+            "Provide a concise overview of your professional journey.";
       }
     } else {
       fetchUserData();
@@ -96,22 +111,27 @@ class _MyProfileState extends State<MyProfile> {
     final data = await query;
     user = null;
     res = null;
-    displayName = data.snapshot.child("fullname").value.toString();
-    if (displayName == "null" && mounted) {
+    userModel.fullname = data.snapshot.child("fullname").value.toString();
+    if (userModel.fullname == "null" && mounted) {
       customSnacBar(context, "User not Found");
       Navigator.pop(context);
       return;
     }
-    username = data.snapshot.child("userName").value.toString();
-    oppoUID = data.snapshot.child("UID").value.toString();
-    photoURL = data.snapshot.child("imgURL").value.toString();
-    profileHeadline = data.snapshot.child("profileHeadline").value.toString();
-    enrollmentYear = data.snapshot.child("enrollmentYear").value.toString();
-    branch = data.snapshot.child("branch").value.toString();
-    fcmToken = data.snapshot.child("fcmToken").value.toString();
-    isVerified = bool.parse(data.snapshot.child("isVerified").value.toString());
-    communityRole = data.snapshot.child("communityRole").value.toString();
-    researchBrief = data.snapshot.child("researchBrief").value.toString();
+    userModel.userName = data.snapshot.child("userName").value.toString();
+    userModel.uid = data.snapshot.child("UID").value.toString();
+    userModel.imgURL = data.snapshot.child("imgURL").value.toString();
+    userModel.profileHeadline =
+        data.snapshot.child("profileHeadline").value.toString();
+    userModel.enrollmentYear =
+        data.snapshot.child("enrollmentYear").value.toString();
+    userModel.branch = data.snapshot.child("branch").value.toString();
+    userModel.fcmToken = data.snapshot.child("fcmToken").value.toString();
+    userModel.isVerified =
+        bool.parse(data.snapshot.child("isVerified").value.toString());
+    userModel.communityRole =
+        data.snapshot.child("communityRole").value.toString();
+    userModel.professionalBrief =
+        data.snapshot.child("professionalBrief").value.toString();
     setState(() {
       _isLoading = false;
     });
@@ -150,7 +170,8 @@ class _MyProfileState extends State<MyProfile> {
     await userDatabaseEvent.child("imgURL").set(downloadURL);
 
     //Update DP at PublicUserData
-    final DatabaseReference publicEvents = publicUserDataRTDB.child(username);
+    final DatabaseReference publicEvents =
+        publicUserDataRTDB.child(userModel.userName);
     await publicEvents.child("imgURL").set(downloadURL);
 
     //List all posts by the user store the post id
@@ -184,7 +205,7 @@ class _MyProfileState extends State<MyProfile> {
         profileHeadlineEditingController.text,
       ).then((value) {
         setState(() {
-          profileHeadline = profileHeadlineEditingController.text;
+          userModel.profileHeadline = profileHeadlineEditingController.text;
         });
         flutterToast(
           "Profile Updated Successfully!",
@@ -195,15 +216,15 @@ class _MyProfileState extends State<MyProfile> {
     }
   }
 
-  void researchHandler(BuildContext context) {
+  void professionalHandler(BuildContext context) {
     bool validate = formKey.currentState!.validate();
     if (validate) {
-      updateResearchBrief(
+      updateprofessionalBrief(
         user!.uid,
-        researchEditingController.text,
+        professionalEditingController.text,
       ).then((value) {
         setState(() {
-          researchBrief = researchEditingController.text;
+          userModel.professionalBrief = professionalEditingController.text;
         });
         flutterToast(
           "Profile Updated Successfully!",
@@ -218,7 +239,17 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+      if (keyboardHeight != _keyboardHeight) {
+        setState(() {
+          _keyboardHeight = keyboardHeight;
+          if (_keyboardHeight == 0) {
+            Navigator.of(context).pop();
+          }
+        });
+      }
+    });
     TextFormField profileHeadlineEditor = TextFormField(
       controller: profileHeadlineEditingController,
       expands: false,
@@ -249,8 +280,8 @@ class _MyProfileState extends State<MyProfile> {
       ),
     );
 
-    TextFormField researchHeadlineEditor = TextFormField(
-      controller: researchEditingController,
+    TextFormField professionalHeadlineEditor = TextFormField(
+      controller: professionalEditingController,
       expands: false,
       autofocus: true,
       maxLength: 500,
@@ -263,7 +294,7 @@ class _MyProfileState extends State<MyProfile> {
         fontSize: 15,
       ),
       onFieldSubmitted: (value) {
-        researchHandler(context);
+        professionalHandler(context);
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -286,17 +317,15 @@ class _MyProfileState extends State<MyProfile> {
         isScrollControlled: true,
         builder: (context) {
           return StatefulBuilder(builder: (context, setState) {
-            double fHeight = height;
-            if (isHeadlinePro) {
-              fHeight = _focusNode.hasFocus ? height / 1.55 : height / 3.2;
-            } else {
-              fHeight = _focusNode.hasFocus ? height / 1.45 : height / 3;
-            }
+            final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+            // if (keyboardHeight == 0) {
+            //   Navigator.pop(context);
+            // }
             return Form(
               key: formKey,
               child: SizedBox(
                 width: width,
-                height: fHeight,
+                height: height - keyboardHeight,
                 child: Column(
                   children: [
                     const SizedBox(
@@ -307,7 +336,7 @@ class _MyProfileState extends State<MyProfile> {
                       child: Text(
                         isHeadlinePro
                             ? "Profile Headline 👤"
-                            : "Research Brief 🔬",
+                            : "Professional Summary 🔬",
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 22,
@@ -323,7 +352,7 @@ class _MyProfileState extends State<MyProfile> {
                       child: Text(
                         isHeadlinePro
                             ? "Describe yourself in brief"
-                            : "Provide a concise overview of your previous research background.",
+                            : "Provide a concise overview of your professional journey.",
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 13,
@@ -341,7 +370,7 @@ class _MyProfileState extends State<MyProfile> {
                           width: width - width / 15,
                           child: isHeadlinePro
                               ? profileHeadlineEditor
-                              : researchHeadlineEditor,
+                              : professionalHeadlineEditor,
                         ),
                         Positioned(
                           right: 7,
@@ -352,7 +381,7 @@ class _MyProfileState extends State<MyProfile> {
                                     handleHeadline(context);
                                   }
                                 : () {
-                                    researchHandler(context);
+                                    professionalHandler(context);
                                   },
                             icon: const Icon(
                               Icons.check,
@@ -416,7 +445,7 @@ class _MyProfileState extends State<MyProfile> {
                                             ? user!.displayName
                                                 .toString()
                                                 .toUpperCase()
-                                            : displayName,
+                                            : userModel.fullname,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -426,7 +455,7 @@ class _MyProfileState extends State<MyProfile> {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      isVerified
+                                      userModel.isVerified
                                           ? const Icon(
                                               Icons.verified,
                                               color: Colors.greenAccent,
@@ -441,7 +470,7 @@ class _MyProfileState extends State<MyProfile> {
                                     onLongPress: () async {
                                       await Clipboard.setData(
                                         ClipboardData(
-                                          text: username,
+                                          text: userModel.userName,
                                         ),
                                       ).then((value) {
                                         flutterToast(
@@ -450,7 +479,7 @@ class _MyProfileState extends State<MyProfile> {
                                       });
                                     },
                                     child: Text(
-                                      "@$username",
+                                      "@${userModel.userName}",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16,
@@ -469,7 +498,7 @@ class _MyProfileState extends State<MyProfile> {
                                     builder: (context) => ImageDialog(
                                       imgUrl: widget.isMyProfile
                                           ? user!.photoURL ?? ""
-                                          : photoURL,
+                                          : userModel.imgURL,
                                     ),
                                   ),
                                 );
@@ -499,7 +528,7 @@ class _MyProfileState extends State<MyProfile> {
                                         backgroundImage: NetworkImage(
                                           widget.isMyProfile
                                               ? user!.photoURL ?? ""
-                                              : photoURL,
+                                              : userModel.imgURL,
                                         ),
                                       ),
                                     ),
@@ -550,9 +579,9 @@ class _MyProfileState extends State<MyProfile> {
                                   SizedBox(
                                     width: width / 1.3,
                                     child: Text(
-                                      profileHeadline.isEmpty
+                                      userModel.profileHeadline.isEmpty
                                           ? "Describe yourself in brief"
-                                          : profileHeadline,
+                                          : userModel.profileHeadline,
                                       textAlign: TextAlign.start,
                                       maxLines: 4,
                                       overflow: TextOverflow.ellipsis,
@@ -583,7 +612,7 @@ class _MyProfileState extends State<MyProfile> {
                                 child: SizedBox(
                                   width: width / 1.3,
                                   child: Text(
-                                    profileHeadline,
+                                    userModel.profileHeadline,
                                     textAlign: TextAlign.start,
                                     maxLines: 4,
                                     overflow: TextOverflow.ellipsis,
@@ -687,11 +716,11 @@ class _MyProfileState extends State<MyProfile> {
                                                 builder: (context) =>
                                                     ChatScreenPage(
                                                   chatID: chatID,
-                                                  userDP: photoURL,
-                                                  name: displayName,
-                                                  userName: username,
-                                                  oppoUID: oppoUID,
-                                                  fcmToken: fcmToken,
+                                                  userDP: userModel.imgURL,
+                                                  name: userModel.fullname,
+                                                  userName: userModel.userName,
+                                                  oppoUID: userModel.uid,
+                                                  fcmToken: userModel.fcmToken,
                                                   isNewMessage: false,
                                                 ),
                                               ),
@@ -707,7 +736,8 @@ class _MyProfileState extends State<MyProfile> {
                               child: IconButton(
                                 style: transparentButtonStyle,
                                 onPressed: () {
-                                  final shareLink = "$domain@$username";
+                                  final shareLink =
+                                      "$domain@${userModel.userName}";
                                   Share.share(
                                     shareLink,
                                   );
@@ -817,20 +847,51 @@ class _MyProfileState extends State<MyProfile> {
                         child: Divider(),
                       )
                     : const SizedBox(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(
+                Padding(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 12,
-                    vertical: 10,
+                    vertical: 0,
                   ),
-                  child: Text(
-                    "Academic Details",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Academic Details",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      widget.isMyProfile
+                          ? TextButton(
+                              onPressed: () {
+                                btmSheetEditor(false).then((value) {
+                                  setState(() {});
+                                });
+                              },
+                              child: const Text(
+                                "EDIT",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          : const SizedBox()
+                    ],
                   ),
                 ),
-                widget.isMyProfile
+                widget.isMyProfile &&
+                        userModel.enrollmentNo.isEmpty &&
+                        userModel.branch.isEmpty &&
+                        userModel.enrollmentYear.isEmpty &&
+                        userModel.passYear.isEmpty
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                        ),
+                        child: Text(
+                          "Provide a concise overview of your academic background",
+                        ),
+                      )
+                    : const SizedBox(),
+                widget.isMyProfile && userModel.enrollmentNo.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
@@ -846,7 +907,7 @@ class _MyProfileState extends State<MyProfile> {
                               width: width / 30,
                             ),
                             Text(
-                              enrollmentNo,
+                              userModel.enrollmentNo,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -860,66 +921,72 @@ class _MyProfileState extends State<MyProfile> {
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.book_outlined,
-                        size: 27,
-                        color: ColorDefination.blue,
-                      ),
-                      SizedBox(
-                        width: width / 30,
-                      ),
-                      SizedBox(
-                        width: width / 1.8,
-                        child: Text(
-                          branch,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ColorDefination.blue,
-                          ),
+                widget.isMyProfile && userModel.branch.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.book_outlined,
+                              size: 27,
+                              color: ColorDefination.blue,
+                            ),
+                            SizedBox(
+                              width: width / 30,
+                            ),
+                            SizedBox(
+                              width: width / 1.8,
+                              child: Text(
+                                userModel.branch,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorDefination.blue,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       )
-                    ],
-                  ),
-                ),
+                    : const SizedBox(),
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.account_circle_outlined,
-                        size: 27,
-                        color: ColorDefination.blue,
-                      ),
-                      SizedBox(
-                        width: width / 30,
-                      ),
-                      Text(
-                        "$communityRole at SGSITS Since $enrollmentYear",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: ColorDefination.blue,
+                widget.isMyProfile &&
+                        userModel.enrollmentYear.isNotEmpty &&
+                        userModel.passYear.isNotEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.account_circle_outlined,
+                              size: 27,
+                              color: ColorDefination.blue,
+                            ),
+                            SizedBox(
+                              width: width / 30,
+                            ),
+                            Text(
+                              "${userModel.communityRole} at SGSITS From ${userModel.enrollmentYear} till ${userModel.passYear}",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: ColorDefination.blue,
+                              ),
+                            )
+                          ],
                         ),
                       )
-                    ],
-                  ),
-                ),
+                    : const SizedBox(),
 
-                //research bg
-                researchBrief.isNotEmpty
+                //professional bg
+                userModel.professionalBrief.isNotEmpty
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -940,7 +1007,7 @@ class _MyProfileState extends State<MyProfile> {
                             child: Row(
                               children: [
                                 const Text(
-                                  "Research Background",
+                                  "Professional Summary",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -967,14 +1034,45 @@ class _MyProfileState extends State<MyProfile> {
                             padding: const EdgeInsets.symmetric(
                               horizontal: 12,
                             ),
-                            child: Text(researchBrief),
+                            child: Text(userModel.professionalBrief),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                         ],
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  // width: width - width / 125,
+                  height: height / 15,
+                  child: TextButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      enableFeedback: false,
+                      backgroundColor:
+                          WidgetStateProperty.all(const Color(0XFF064A98)),
+                      overlayColor: WidgetStateProperty.all(Colors.white12),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(9),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      "Verify ✅",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
     );

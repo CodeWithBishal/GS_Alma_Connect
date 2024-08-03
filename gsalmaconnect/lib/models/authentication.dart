@@ -54,15 +54,16 @@ class GoogleSignInProvider extends ChangeNotifier {
             (kDebugMode && !isUseProdDB) ? _fakeIdToken : googleAuth.idToken,
       );
       try {
-        await isUserAlreadyRegistered(googleUser.email).then((value) async {
-          if (value == false) {
-            await _auth.signInWithCredential(credential!);
-          } else {
-            flutterToast(
-              "Account already exists with Password Authentication",
-            );
-          }
-        });
+        // await isUserAlreadyRegistered(googleUser.email).then((value) async {
+        //   if (value == false) {
+        //     await _auth.signInWithCredential(credential!);
+        //   } else {
+        //     flutterToast(
+        //       "Account already exists with Password Authentication",
+        //     );
+        //   }
+        // });
+        await _auth.signInWithCredential(credential!);
       } catch (e) {
         late String msg = e.toString();
         if (e.toString().contains("[firebase_auth/user-disabled]")) {
@@ -287,9 +288,10 @@ Future postDetailsToFirebaseDataBase(
   int noOfPosts = 0;
   String branch = "";
   String enrollmentYear = "";
+  String passYear = "";
   List otherUserData = [];
   String profileHeadline = "";
-  String researchBrief = "";
+  String professionalBrief = "";
   String course = "";
 
   // calling firebaseStorage
@@ -311,9 +313,10 @@ Future postDetailsToFirebaseDataBase(
     noOfPosts: noOfPosts,
     branch: branch,
     enrollmentYear: enrollmentYear,
+    passYear: passYear,
     otherData: otherUserData,
     profileHeadline: profileHeadline,
-    researchBrief: researchBrief,
+    professionalBrief: professionalBrief,
     course: course,
     fcmToken: fcmToken,
     isAllowDM: true,
@@ -362,7 +365,7 @@ Future postDetailsToFirebaseDataBase(
     branch,
     enrollmentYear,
     profileHeadline,
-    researchBrief,
+    professionalBrief,
     course,
     otherUserData,
     fcmToken,
