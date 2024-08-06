@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:911872147658:android:cceeb13beb06ce2b837433",
+        "mobilesdk_app_id": "1:911872147658:android:7b596898c0702877837433",
         "android_client_info": {
-          "package_name": "com.sgsits.almaconnect"
+          "package_name": "com.sgsits.gs_almaconnect_ph"
         }
       },
       "oauth_client": [
         {
-          "client_id": "911872147658-8e8er7iudndebegn7b7jeum354iok5et.apps.googleusercontent.com",
+          "client_id": "911872147658-3ut288b58565ri12n2d9obhg2mm1kuus.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.sgsits.almaconnect",
+            "package_name": "com.sgsits.gs_almaconnect_ph",
             "certificate_hash": "9f5715d2a222b008c11eb0827c44ac4fac0085dd"
           }
         },

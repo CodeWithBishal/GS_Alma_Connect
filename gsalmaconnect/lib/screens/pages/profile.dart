@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gsconnect/models/hive/hiveboxes.dart';
 import 'package:gsconnect/models/user.dart';
+import 'package:gsconnect/screens/auth/redirect.dart';
 import 'package:gsconnect/screens/backend/update_profile.dart';
 import 'package:gsconnect/screens/chat/chat_screen.dart';
-import 'package:gsconnect/screens/pages/homepage.dart';
 import 'package:gsconnect/theme/colors.dart';
 import 'package:gsconnect/theme/whitelabel.dart';
 import 'package:gsconnect/widgets/appbar.dart';
@@ -96,7 +96,8 @@ class _MyProfileState extends State<MyProfile> {
       userModel.communityRole = res?.communityRole ?? "Student";
       userModel.isVerified = res?.isVerified ?? false;
       userModel.professionalBrief = res?.professionalBrief ?? "";
-      if (userModel.professionalBrief.isEmpty) {
+      if (userModel.professionalBrief.isEmpty ||
+          userModel.professionalBrief == "null") {
         userModel.professionalBrief =
             "Provide a concise overview of your professional journey.";
       }
@@ -1039,39 +1040,60 @@ class _MyProfileState extends State<MyProfile> {
                           const SizedBox(
                             height: 10,
                           ),
+                          Center(
+                            child: SizedBox(
+                              width: width - width / 20,
+                              height: height / 15,
+                              child: TextButton(
+                                onPressed: () async {
+                                  final ref = userDataRTDB.child(userModel.uid);
+                                  final publicDataRef = publicUserDataRTDB
+                                      .child(userModel.userName);
+                                  await publicDataRef
+                                      .child("isVerified")
+                                      .set(true);
+                                  await ref.child("isVerified").set(true);
+                                  await deleteHiveAndRefetch();
+                                  if (!context.mounted) return;
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RedirectUser(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                style: ButtonStyle(
+                                  enableFeedback: false,
+                                  backgroundColor: WidgetStateProperty.all(
+                                      const Color(0XFF064A98)),
+                                  overlayColor:
+                                      WidgetStateProperty.all(Colors.white12),
+                                  shape: WidgetStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(9),
+                                    ),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Verify ✅",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       )
                     : const SizedBox(),
                 const SizedBox(
                   height: 20,
-                ),
-                SizedBox(
-                  // width: width - width / 125,
-                  height: height / 15,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      enableFeedback: false,
-                      backgroundColor:
-                          WidgetStateProperty.all(const Color(0XFF064A98)),
-                      overlayColor: WidgetStateProperty.all(Colors.white12),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(9),
-                        ),
-                      ),
-                    ),
-                    child: const Text(
-                      "Verify ✅",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat',
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
