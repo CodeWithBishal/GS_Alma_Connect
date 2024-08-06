@@ -1,140 +1,26 @@
 {
   "project_info": {
-    "project_number": "911872147658",
-    "firebase_url": "https://gsconnect-1-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "gsconnect-1",
-    "storage_bucket": "gsconnect-1.appspot.com"
+    "project_number": "480185896784",
+    "project_id": "gs-almaconnect---ph",
+    "storage_bucket": "gs-almaconnect---ph.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:911872147658:android:7b596898c0702877837433",
+        "mobilesdk_app_id": "1:480185896784:android:388b5937a4c9d6987de655",
         "android_client_info": {
           "package_name": "com.sgsits.gs_almaconnect_ph"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "911872147658-3ut288b58565ri12n2d9obhg2mm1kuus.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sgsits.gs_almaconnect_ph",
-            "certificate_hash": "9f5715d2a222b008c11eb0827c44ac4fac0085dd"
-          }
-        },
-        {
-          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
+          "current_key": "AIzaSyAxawmRj6EnAe54N-e_7Ezyd4YNhLW5QvY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.sgsits.gsconnect"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:911872147658:android:bb3c260df4a24085837433",
-        "android_client_info": {
-          "package_name": "com.sgsits.gs_connect"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.sgsits.gsconnect"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:911872147658:android:a123f4946062ae34837433",
-        "android_client_info": {
-          "package_name": "com.sgsits.gs_connect_debug"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "911872147658-9nkauvblda37djhthrlu6vct98djk0h4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sgsits.gs_connect_debug",
-            "certificate_hash": "9f5715d2a222b008c11eb0827c44ac4fac0085dd"
-          }
-        },
-        {
-          "client_id": "911872147658-qkcdu5ab1euo279bjgg7ag8oppdcmput.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sgsits.gs_connect_debug",
-            "certificate_hash": "e882c939d3a09643a3220da58ba1d9aa12812b88"
-          }
-        },
-        {
-          "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCJyWEx6gkndOFwkc_Y9kZbQwuHObibwfM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "911872147658-s172a3nrgdsvab4irdv8d2b1t827a4lf.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "911872147658-e1dp9djfbg0fvlhqp5k7bkvila45c4n2.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.sgsits.gsconnect"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
